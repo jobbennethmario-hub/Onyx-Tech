@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Air Force Comprehensive School, Uyo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#0A1628;--navy2:#0F2040;--blue:#1A3A6E;--blue2:#204080;
+  --gold:#C9A84C;--gold2:#E8C76A;--cream:#F5F0E8;--white:#FAFAF8;
+  --gray:#8A8A8A;--light:#E8E0D0;--green:#2D6A4F;--red:#9B2226;
+  --sidebar:260px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Crimson Pro',Georgia,serif;background:var(--navy);color:var(--cream);overflow-x:hidden;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--navy);}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px;}
+
+/* ══════════════════════ VIEWS ══════════════════════ */
+#siteView,#adminView{min-height:100vh;}
+#adminView{display:none;}
+
+/* ══════════════════════ NAV ══════════════════════ */
+nav{position:fixed;top:0;width:100%;z-index:900;background:rgba(10,22,40,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,.25);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;}
+.nav-brand{display:flex;align-items:center;gap:12px;}
+.nav-logo-ring{width:42px;height:42px;border-radius:50%;border:2px solid var(--gold);overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--navy2);}
+.nav-logo-ring img{width:100%;height:100%;object-fit:cover;}
+.nav-logo-text{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--gold);}
+.nav-school-name{font-family:'Cinzel',serif;font-size:12px;font-weight:600;color:var(--gold2);letter-spacing:.4px;line-height:1.3;}
+.nav-links{display:flex;gap:24px;list-style:none;}
+.nav-links a{font-family:'Cinzel',serif;font-size:11px;font-weight:600;text-decoration:none;color:var(--light);letter-spacing:1.5px;text-transform:uppercase;transition:color .3s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s;}
+.nav-links a:hover{color:var(--gold2);}
+.nav-links a:hover::after{width:100%;}
+.btn-admin{font-family:'Cinzel',serif;font-size:11px;font-weight:700;background:var(--gold);color:var(--navy);padding:8px 18px;border-radius:2px;border:none;cursor:pointer;letter-spacing:1.5px;transition:.2s;}
+.btn-admin:hover{background:var(--gold2);}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+.ham span{width:24px;height:2px;background:var(--gold);display:block;}
+
+/* ══════════════════════ HERO ══════════════════════ */
+.hero{min-height:100vh;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(135deg,#050E1A 0%,#0A1628 40%,#0F2040 70%,#0A1628 100%);}
+.hero-pat{position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 1px,transparent 60px);}
+.hero-stars{position:absolute;inset:0;pointer-events:none;}
+.star{position:absolute;width:2px;height:2px;background:var(--gold);border-radius:50%;opacity:0;animation:twinkle var(--d) ease-in-out infinite var(--dl);}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(1);}50%{opacity:.6;transform:scale(1.5);}}
+.hero-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center;padding:100px 40px 60px;animation:fadeUp 1.2s ease-out forwards;opacity:0;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+.hero-ring{width:150px;height:150px;border-radius:50%;border:3px solid var(--gold);box-shadow:0 0 40px rgba(201,168,76,.25);display:flex;align-items:center;justify-content:center;margin-bottom:32px;background:var(--navy2);overflow:hidden;position:relative;}
+.hero-ring img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.hero-ring-placeholder{font-family:'Cinzel',serif;font-size:30px;font-weight:900;color:var(--gold);text-align:center;line-height:1.1;}
+.hero-ring-placeholder small{display:block;font-size:11px;font-weight:400;letter-spacing:2px;color:var(--gold2);margin-top:4px;}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;opacity:.8;}
+.hero-title{font-family:'Cinzel',serif;font-size:clamp(28px,5vw,56px);font-weight:900;line-height:1.1;color:var(--white);margin-bottom:8px;}
+.hero-title .g{color:var(--gold);}
+.hero-sub{font-family:'Cinzel',serif;font-size:clamp(14px,2.5vw,21px);color:var(--light);font-weight:400;margin-bottom:22px;letter-spacing:1px;}
+.hdiv{width:120px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 22px;}
+.motto-badge{font-family:'Cinzel',serif;font-size:clamp(13px,1.8vw,19px);font-weight:700;color:var(--gold2);letter-spacing:3px;text-transform:uppercase;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.3);padding:11px 30px;border-radius:2px;margin-bottom:36px;}
+.hero-stats{display:flex;gap:44px;flex-wrap:wrap;justify-content:center;margin-bottom:36px;}
+.hstat-num{font-family:'Cinzel',serif;font-size:30px;font-weight:900;color:var(--gold);}
+.hstat-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gray);letter-spacing:2px;text-transform:uppercase;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+.btn-pri{font-family:'Cinzel',serif;font-size:13px;font-weight:700;background:var(--gold);color:var(--navy);padding:13px 30px;border-radius:2px;text-decoration:none;letter-spacing:2px;transition:.3s;display:inline-block;border:none;cursor:pointer;}
+.btn-pri:hover{background:var(--gold2);transform:translateY(-2px);}
+.btn-ghost{font-family:'Cinzel',serif;font-size:13px;font-weight:600;background:transparent;color:var(--cream);padding:13px 30px;border:1px solid rgba(201,168,76,.4);border-radius:2px;text-decoration:none;letter-spacing:2px;transition:.3s;display:inline-block;}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold2);transform:translateY(-2px);}
+.scroll-arr{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);animation:bounce 2s infinite;}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(8px);}}
+.scroll-arr svg{width:24px;height:24px;stroke:var(--gold);opacity:.5;}
+
+/* ══════════════════════ TICKER ══════════════════════ */
+.ticker{background:var(--gold);overflow:hidden;padding:9px 0;}
+.ticker-inner{display:flex;gap:70px;animation:tick 35s linear infinite;white-space:nowrap;}
+.ticker-inner:hover{animation-play-state:paused;}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.tick-item{font-family:'Cinzel',serif;font-size:11px;font-weight:700;color:var(--navy);letter-spacing:2px;text-transform:uppercase;flex-shrink:0;}
+
+/* ══════════════════════ SECTIONS ══════════════════════ */
+section{padding:86px 60px;}
+.sec-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:10px;}
+.sec-heading{font-family:'Cinzel',serif;font-size:clamp(22px,3.5vw,40px);font-weight:700;color:var(--white);line-height:1.15;margin-bottom:18px;}
+.sec-heading .g{color:var(--gold);}
+.gold-bar{width:56px;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2));margin-bottom:30px;}
+.sec-text{font-size:17px;line-height:1.8;color:var(--light);max-width:700px;}
+#about{background:var(--navy2);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;max-width:1180px;margin:0 auto;}
+.info-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.icard{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.18);padding:18px 22px;border-radius:4px;transition:.3s;}
+.icard:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.4);transform:translateY(-2px);}
+.icard-icon{font-size:22px;margin-bottom:8px;}
+.icard-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;}
+.icard-val{font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--white);line-height:1.3;}
+
+/* ══════════════════════ SCHEDULE ══════════════════════ */
+#schedule{background:var(--navy);}
+.sched-wrap{max-width:880px;margin:0 auto;}
+.day-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
+.dtab{font-family:'Cinzel',serif;font-size:11px;font-weight:700;padding:8px 16px;border-radius:2px;cursor:pointer;letter-spacing:1.5px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);color:var(--light);transition:.2s;}
+.dtab.on,.dtab:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+.timeline{position:relative;padding-left:30px;}
+.timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--gold),rgba(201,168,76,.1));}
+.titem{position:relative;margin-bottom:26px;opacity:0;animation:sli .4s ease-out forwards;}
+@keyframes sli{from{opacity:0;transform:translateX(-10px);}to{opacity:1;transform:translateX(0);}}
+.tdot{position:absolute;left:-26px;top:6px;width:12px;height:12px;border-radius:50%;border:2px solid var(--gold);background:var(--navy);}
+.tdot.lit{background:var(--gold);box-shadow:0 0 10px rgba(201,168,76,.5);}
+.ttime{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:2px;margin-bottom:3px;}
+.tactivity{font-family:'Cinzel',serif;font-size:15px;font-weight:600;color:var(--white);margin-bottom:3px;}
+.tdetail{font-size:15px;color:var(--light);line-height:1.6;}
+.badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 7px;border-radius:2px;margin-left:7px;vertical-align:middle;}
+.b-asm{background:rgba(26,58,110,.6);color:#6BA3FF;border:1px solid rgba(107,163,255,.3);}
+.b-spt{background:rgba(0,120,80,.3);color:#4ADE80;border:1px solid rgba(74,222,128,.3);}
+.b-svc{background:rgba(120,50,150,.3);color:#C084FC;border:1px solid rgba(192,132,252,.3);}
+.b-lab{background:rgba(200,100,0,.3);color:#FB923C;border:1px solid rgba(251,146,60,.3);}
+
+/* ══════════════════════ NEWS ══════════════════════ */
+#news{background:var(--navy2);}
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px;max-width:1180px;margin:0 auto;}
+.ncard{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);border-radius:4px;overflow:hidden;transition:.3s;}
+.ncard:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 12px 32px rgba(0,0,0,.3);}
+.ncard-top{padding:22px;border-bottom:1px solid rgba(201,168,76,.08);}
+.ncard-date{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:2px;margin-bottom:8px;}
+.ncard-title{font-family:'Cinzel',serif;font-size:15px;font-weight:600;color:var(--white);line-height:1.4;margin-bottom:8px;}
+.ncard-body{font-size:14px;color:var(--light);line-height:1.7;}
+.ncard-foot{padding:10px 22px;display:flex;align-items:center;gap:8px;}
+.ntag{font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 7px;background:rgba(201,168,76,.12);color:var(--gold);border-radius:2px;}
+.empty-state{font-family:'Cinzel',serif;font-size:16px;color:var(--gray);text-align:center;padding:60px;grid-column:1/-1;}
+
+/* ══════════════════════ MENU ══════════════════════ */
+#menu{background:var(--navy);}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1080px;margin:0 auto;}
+.mcard{background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.15);border-radius:4px;overflow:hidden;}
+.mcard-head{padding:16px 22px;background:rgba(201,168,76,.1);border-bottom:1px solid rgba(201,168,76,.2);}
+.meal-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;}
+.meal-name{font-family:'Cinzel',serif;font-size:17px;font-weight:700;color:var(--white);}
+.mcard-body{padding:18px 22px;}
+.mitem{padding:7px 0;border-bottom:1px solid rgba(201,168,76,.07);font-size:15px;color:var(--light);display:flex;align-items:center;gap:8px;}
+.mitem::before{content:'—';color:var(--gold);opacity:.5;}
+.mitem:last-child{border-bottom:none;}
+
+/* ══════════════════════ CLASSES ══════════════════════ */
+#classes{background:var(--navy2);}
+.cls-container{max-width:1180px;margin:0 auto;}
+.lvl-tabs{display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap;}
+.ltab{font-family:'Cinzel',serif;font-size:13px;font-weight:700;padding:9px 22px;border-radius:2px;cursor:pointer;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);color:var(--light);transition:.2s;letter-spacing:1px;}
+.ltab.on,.ltab:hover{background:var(--blue);border-color:var(--gold);color:var(--gold2);}
+.sections-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+.scard{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:22px;transition:.3s;}
+.scard:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.2);}
+.scard-name{font-family:'Cinzel',serif;font-size:21px;font-weight:900;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.scard-name::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.2);}
+.sinfo-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;opacity:.7;margin-bottom:2px;}
+.sinfo-val{font-size:13px;color:var(--light);font-weight:600;margin-bottom:10px;}
+.scount{font-family:'Cinzel',serif;font-size:12px;color:var(--gray);padding-top:10px;border-top:1px solid rgba(201,168,76,.1);}
+.scount span{color:var(--gold2);font-weight:700;}
+
+/* ══════════════════════ ACTIVITIES ══════════════════════ */
+#activities{background:var(--navy);}
+.act-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px;max-width:1180px;margin:0 auto;}
+.acard{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:22px;transition:.3s;}
+.acard:hover{border-color:var(--gold);transform:translateY(-3px);}
+.acard-icon{font-size:30px;margin-bottom:10px;}
+.acard-name{font-family:'Cinzel',serif;font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px;}
+.acard-desc{font-size:14px;color:var(--light);line-height:1.6;}
+.acard-day{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:2px;margin-top:10px;}
+
+/* ══════════════════════ LOCATION ══════════════════════ */
+#location{background:var(--navy2);}
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;max-width:1180px;margin:0 auto;}
+.map-wrap{border:2px solid rgba(201,168,76,.3);border-radius:4px;overflow:hidden;height:370px;}
+.map-wrap iframe{width:100%;height:100%;border:none;}
+.citem{display:flex;gap:14px;align-items:flex-start;margin-bottom:18px;}
+.cicon{width:40px;height:40px;border-radius:2px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:17px;}
+.clbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:2px;margin-bottom:3px;}
+.cval{font-size:15px;color:var(--light);line-height:1.5;}
+
+/* ══════════════════════ FOOTER ══════════════════════ */
+footer{background:#050E1A;border-top:1px solid rgba(201,168,76,.2);padding:56px 60px 28px;}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;max-width:1180px;margin:0 auto 36px;}
+.foot-logo-row{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.foot-logo-ring{width:52px;height:52px;border-radius:50%;border:2px solid var(--gold);overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--navy2);}
+.foot-logo-ring img{width:100%;height:100%;object-fit:cover;}
+.foot-brand-name{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--white);line-height:1.3;}
+.foot-motto{font-family:'Cinzel',serif;font-size:12px;color:var(--gold);font-style:italic;margin-top:3px;}
+.foot-desc{font-size:14px;color:var(--gray);line-height:1.7;}
+.fcol-title{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--gold);letter-spacing:1px;margin-bottom:14px;}
+.flinks{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.flinks a{font-size:14px;color:var(--gray);text-decoration:none;transition:color .2s;cursor:pointer;}
+.flinks a:hover{color:var(--gold2);}
+.foot-bottom{border-top:1px solid rgba(201,168,76,.1);padding-top:22px;max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.foot-copy{font-size:12px;color:var(--gray);}
+.foot-naf{font-family:'Cinzel',serif;font-size:11px;color:var(--gold);letter-spacing:2px;}
+.admin-trigger{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(201,168,76,.3);cursor:pointer;letter-spacing:1px;background:none;border:none;transition:color .3s;}
+.admin-trigger:hover{color:var(--gold);}
+
+/* ══════════════════════ LOGIN MODAL ══════════════════════ */
+.modal-overlay{position:fixed;inset:0;z-index:9000;background:rgba(5,14,26,.95);display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+.modal-overlay.show{display:flex;}
+.modal-box{width:400px;padding:44px;background:var(--navy2);border:1px solid rgba(201,168,76,.3);border-radius:4px;text-align:center;}
+.modal-logo{font-size:42px;margin-bottom:12px;}
+.modal-title{font-family:'Cinzel',serif;font-size:19px;color:var(--white);margin-bottom:4px;}
+.modal-sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:2px;margin-bottom:28px;}
+.flabel{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:5px;text-align:left;}
+.finput{width:100%;padding:11px 14px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);color:var(--white);font-family:'Crimson Pro',serif;font-size:16px;border-radius:2px;outline:none;transition:.2s;margin-bottom:14px;}
+.finput:focus{border-color:var(--gold);background:rgba(201,168,76,.1);}
+.modal-err{color:#ff7070;font-size:13px;margin-top:10px;display:none;}
+.btn-modal-close{position:absolute;top:12px;right:16px;background:none;border:none;color:var(--gray);font-size:22px;cursor:pointer;}
+.modal-box{position:relative;}
+
+/* ══════════════════════ ADMIN PANEL ══════════════════════ */
+#adminView{display:none;background:var(--navy);}
+.admin-layout{display:flex;min-height:100vh;}
+
+/* Sidebar */
+.adm-sidebar{width:var(--sidebar);background:#060F1E;border-right:1px solid rgba(201,168,76,.12);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;overflow-y:auto;z-index:100;}
+.adm-shead{padding:22px 18px;border-bottom:1px solid rgba(201,168,76,.1);display:flex;align-items:center;gap:10px;}
+.adm-slogo{width:44px;height:44px;border-radius:50%;border:2px solid var(--gold);overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--navy2);flex-shrink:0;}
+.adm-slogo img{width:100%;height:100%;object-fit:cover;}
+.adm-slogo-txt{font-family:'Cinzel',serif;font-size:12px;font-weight:900;color:var(--gold);}
+.adm-sbrand{font-family:'Cinzel',serif;font-size:11px;line-height:1.4;color:var(--white);}
+.adm-sbrand small{display:block;font-size:9px;color:var(--gold);font-family:'JetBrains Mono',monospace;letter-spacing:1px;}
+.adm-snav{flex:1;padding:14px 0;}
+.snav-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--gray);letter-spacing:3px;text-transform:uppercase;padding:10px 18px 5px;}
+.slink{display:flex;align-items:center;gap:10px;padding:10px 18px;color:var(--light);text-decoration:none;font-size:13px;transition:.2s;cursor:pointer;border:none;background:none;width:100%;text-align:left;font-family:'Crimson Pro',serif;}
+.slink:hover{background:rgba(201,168,76,.07);color:var(--gold2);}
+.slink.on{background:rgba(201,168,76,.11);color:var(--gold);border-left:2px solid var(--gold);}
+.slink .si{font-size:15px;width:18px;text-align:center;}
+.adm-sfooter{padding:14px 18px;border-top:1px solid rgba(201,168,76,.1);display:flex;flex-direction:column;gap:8px;}
+.btn-site{font-family:'JetBrains Mono',monospace;font-size:10px;background:rgba(201,168,76,.1);color:var(--gold);border:1px solid rgba(201,168,76,.3);padding:9px 14px;border-radius:2px;cursor:pointer;letter-spacing:1.5px;transition:.2s;text-align:center;}
+.btn-site:hover{background:rgba(201,168,76,.2);}
+.btn-logout{font-family:'JetBrains Mono',monospace;font-size:10px;background:rgba(155,34,38,.2);color:#ff9a9a;border:1px solid rgba(155,34,38,.4);padding:9px 14px;border-radius:2px;cursor:pointer;letter-spacing:1.5px;transition:.2s;}
+.btn-logout:hover{background:rgba(155,34,38,.4);}
+
+/* Main content */
+.adm-main{margin-left:var(--sidebar);flex:1;min-height:100vh;}
+.adm-topbar{background:rgba(10,22,40,.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,168,76,.12);padding:0 28px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.adm-page-title{font-family:'Cinzel',serif;font-size:17px;font-weight:700;color:var(--white);}
+.adm-badge{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);padding:4px 10px;border-radius:2px;letter-spacing:1.5px;}
+.apage{padding:28px;display:none;}
+.apage.on{display:block;}
+
+/* Admin cards */
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px;margin-bottom:28px;}
+.dstat{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:22px;transition:.2s;}
+.dstat:hover{border-color:var(--gold);}
+.dstat-icon{font-size:26px;margin-bottom:8px;}
+.dstat-val{font-family:'Cinzel',serif;font-size:30px;font-weight:900;color:var(--gold);}
+.dstat-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gray);letter-spacing:2px;text-transform:uppercase;margin-top:3px;}
+.panel{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.12);border-radius:4px;padding:26px;margin-bottom:22px;}
+.panel h3{font-family:'Cinzel',serif;font-size:15px;color:var(--gold);margin-bottom:18px;}
+.frow{display:flex;gap:14px;margin-bottom:14px;flex-wrap:wrap;}
+.ffield{flex:1;min-width:180px;}
+.ffield label{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:5px;}
+.ffield input,.ffield textarea,.ffield select{width:100%;padding:9px 13px;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);color:var(--white);font-family:'Crimson Pro',serif;font-size:15px;border-radius:2px;outline:none;transition:.2s;}
+.ffield input:focus,.ffield textarea:focus,.ffield select:focus{border-color:var(--gold);}
+.ffield select option{background:var(--navy2);}
+.ffield textarea{resize:vertical;min-height:80px;}
+.btn-save{font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:2px;background:var(--gold);color:var(--navy);padding:10px 26px;border:none;border-radius:2px;cursor:pointer;transition:.2s;}
+.btn-save:hover{background:var(--gold2);transform:translateY(-1px);}
+.btn-clr{font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:2px;background:rgba(201,168,76,.1);color:var(--gold);padding:10px 26px;border:1px solid rgba(201,168,76,.3);border-radius:2px;cursor:pointer;transition:.2s;}
+.btn-clr:hover{background:rgba(201,168,76,.2);}
+.btn-green{font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:1.5px;background:rgba(45,106,79,.3);color:#6FD8A8;padding:10px 22px;border:1px solid rgba(45,106,79,.4);border-radius:2px;cursor:pointer;transition:.2s;}
+.btn-green:hover{background:rgba(45,106,79,.5);}
+.btn-del2{font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:1px;background:rgba(155,34,38,.2);color:#ff9a9a;padding:5px 11px;border:1px solid rgba(155,34,38,.4);border-radius:2px;cursor:pointer;}
+.btn-edit2{font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:1px;background:rgba(201,168,76,.15);color:var(--gold);padding:5px 11px;border:1px solid rgba(201,168,76,.3);border-radius:2px;cursor:pointer;}
+
+/* Table */
+.dtable{width:100%;border-collapse:collapse;}
+.dtable th{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;padding:9px 14px;border-bottom:1px solid rgba(201,168,76,.2);text-align:left;}
+.dtable td{padding:11px 14px;font-size:14px;color:var(--light);border-bottom:1px solid rgba(201,168,76,.07);}
+.dtable tr:hover td{background:rgba(201,168,76,.03);}
+
+/* Class editor */
+.cls-lvl-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.cltab{font-family:'Cinzel',serif;font-size:12px;font-weight:700;letter-spacing:1px;padding:6px 14px;border-radius:2px;cursor:pointer;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);color:var(--light);transition:.2s;}
+.cltab.on,.cltab:hover{background:var(--blue);border-color:var(--gold);color:var(--gold2);}
+.cls-sec-tabs{display:flex;gap:8px;margin-bottom:18px;}
+.cstab{font-family:'Cinzel',serif;font-size:13px;font-weight:700;padding:7px 18px;border-radius:2px;cursor:pointer;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);color:var(--light);transition:.2s;}
+.cstab.on,.cstab:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+.stu-row{display:flex;gap:8px;align-items:center;margin-bottom:7px;}
+.stu-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);width:28px;flex-shrink:0;}
+.stu-row input{flex:1;}
+.btn-rm{background:rgba(155,34,38,.3);color:#ff9a9a;border:none;border-radius:2px;padding:5px 10px;cursor:pointer;font-size:13px;}
+
+/* Meal editor */
+.meal-col-title{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--gold);margin-bottom:10px;}
+.meal-item-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
+.meal-item-row input{flex:1;}
+
+/* Logo */
+.logo-drop{border:2px dashed rgba(201,168,76,.3);border-radius:4px;padding:36px;text-align:center;cursor:pointer;transition:.2s;}
+.logo-drop:hover{border-color:var(--gold);background:rgba(201,168,76,.04);}
+.logo-drop input{display:none;}
+.logo-drop-title{font-family:'Cinzel',serif;font-size:15px;color:var(--gold);margin-bottom:6px;}
+.logo-drop-sub{font-size:13px;color:var(--gray);}
+.logo-prev-wrap{margin-top:18px;display:none;text-align:center;}
+.logo-prev{width:110px;height:110px;border-radius:50%;border:3px solid var(--gold);object-fit:cover;}
+
+/* Toast */
+#toast{position:fixed;bottom:28px;right:28px;z-index:9998;background:var(--gold);color:var(--navy);font-family:'Cinzel',serif;font-size:12px;font-weight:700;padding:13px 26px;border-radius:2px;letter-spacing:1.5px;transform:translateY(70px);opacity:0;transition:.3s;}
+#toast.show{transform:translateY(0);opacity:1;}
+
+/* ══════════════════════ RESPONSIVE ══════════════════════ */
+@media(max-width:900px){
+  nav{padding:0 18px;}
+  .nav-links{display:none;}
+  .btn-admin{display:none;}
+  .ham{display:flex;}
+  section{padding:60px 20px;}
+  .about-grid,.loc-grid{grid-template-columns:1fr;}
+  .info-cards{grid-template-columns:1fr 1fr;}
+  .sections-grid{grid-template-columns:1fr 1fr;}
+  .menu-grid{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:28px;}
+}
+@media(max-width:600px){
+  .sections-grid{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════ SITE VIEW ══════════════════════ -->
+<div id="siteView">
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-brand">
+    <div class="nav-logo-ring" id="navLogo">
+      <span class="nav-logo-text" id="navLogoTxt">AFCS</span>
+    </div>
+    <div class="nav-school-name">Air Force Comprehensive School<br>Uyo, Akwa Ibom State</div>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="#activities">Activities</a></li>
+    <li><a href="#location">Location</a></li>
+  </ul>
+  <button class="btn-admin" onclick="openAdminLogin()">⚙ ADMIN</button>
+  <button class="ham" onclick="toggleMobileNav()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-pat"></div>
+  <div class="hero-stars" id="starsBox"></div>
+  <div class="hero-content">
+    <div class="hero-ring" id="heroRing">
+      <div class="hero-ring-placeholder" id="heroLogoTxt">AFCS<small>UYO</small></div>
+    </div>
+    <div class="eyebrow">Nigerian Air Force · Est. 1999</div>
+    <h1 class="hero-title">Air Force <span class="g">Comprehensive</span><br>School, Uyo</h1>
+    <div class="hero-sub">Akwa Ibom State, Nigeria</div>
+    <div class="hdiv"></div>
+    <div class="motto-badge">✦ Perseverance Breeds Success ✦</div>
+    <div class="hero-stats">
+      <div><div class="hstat-num">1999</div><div class="hstat-lbl">Established</div></div>
+      <div><div class="hstat-num">JSS–SS</div><div class="hstat-lbl">Six Years</div></div>
+      <div><div class="hstat-num">NAF</div><div class="hstat-lbl">Managed</div></div>
+      <div><div class="hstat-num">Mixed</div><div class="hstat-lbl">Boarding</div></div>
+    </div>
+    <div class="hero-btns">
+      <a href="#about" class="btn-pri">Discover AFCS</a>
+      <a href="#schedule" class="btn-ghost">Daily Routine</a>
+    </div>
+  </div>
+  <div class="scroll-arr"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ticker-inner" id="tickerInner"></div></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="sec-label">About the School</div>
+      <h2 class="sec-heading">Shaping <span class="g">Future Leaders</span><br>Since 1999</h2>
+      <div class="gold-bar"></div>
+      <p class="sec-text">Air Force Comprehensive School (AFCS), Uyo is a premier co-educational boarding secondary school established in January 1999 under the Nigerian Air Force Directorate of Education. Located in Uyo, the capital of Akwa Ibom State, the school provides comprehensive secondary education with military discipline and academic excellence.</p>
+      <br><p class="sec-text">The school is staffed by a combination of Nigerian Air Force military instructors and civilian teachers, ensuring both academic rigour and structured discipline that prepares students for higher education and national service.</p>
+    </div>
+    <div class="info-cards">
+      <div class="icard"><div class="icard-icon">📅</div><div class="icard-lbl">Established</div><div class="icard-val">January 1999</div></div>
+      <div class="icard"><div class="icard-icon">📍</div><div class="icard-lbl">Location</div><div class="icard-val">Uyo, Akwa Ibom State</div></div>
+      <div class="icard"><div class="icard-icon">🎓</div><div class="icard-lbl">Type</div><div class="icard-val">Co-educational Boarding</div></div>
+      <div class="icard"><div class="icard-icon">🪖</div><div class="icard-lbl">Authority</div><div class="icard-val">Nigerian Air Force (NAF)</div></div>
+      <div class="icard"><div class="icard-icon">📚</div><div class="icard-lbl">Curriculum</div><div class="icard-val">JSS 1 – SS 3 (6 Years)</div></div>
+      <div class="icard"><div class="icard-icon">🏆</div><div class="icard-lbl">Motto</div><div class="icard-val">Perseverance Breeds Success</div></div>
+      <div class="icard"><div class="icard-icon">🌍</div><div class="icard-lbl">Region</div><div class="icard-val">South-South Nigeria</div></div>
+      <div class="icard"><div class="icard-icon">✈️</div><div class="icard-lbl">Code</div><div class="icard-val">AFCS/UYO</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="schedule">
+  <div class="sched-wrap">
+    <div class="sec-label">Daily Routine</div>
+    <h2 class="sec-heading">Student <span class="g">Daily Schedule</span></h2>
+    <div class="gold-bar"></div>
+    <div class="day-tabs" id="dayTabsEl"></div>
+    <div class="timeline" id="timelineEl"></div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="news">
+  <div class="sec-label">Latest Updates</div>
+  <h2 class="sec-heading">School <span class="g">News &amp; Announcements</span></h2>
+  <div class="gold-bar"></div>
+  <div class="news-grid" id="newsGrid"></div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="sec-label">Dining Hall</div>
+  <h2 class="sec-heading">Today's <span class="g">Meal Menu</span></h2>
+  <div class="gold-bar"></div>
+  <div class="menu-grid" id="menuGrid"></div>
+</section>
+
+<!-- CLASSES -->
+<section id="classes">
+  <div class="cls-container">
+    <div class="sec-label">Academic Classes</div>
+    <h2 class="sec-heading">Classes <span class="g">JSS1 – SS3</span></h2>
+    <div class="gold-bar"></div>
+    <div class="lvl-tabs" id="siteLvlTabs"></div>
+    <div class="sections-grid" id="siteSections"></div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section id="activities">
+  <div class="sec-label">Student Life</div>
+  <h2 class="sec-heading">School <span class="g">Activities</span></h2>
+  <div class="gold-bar"></div>
+  <div class="act-grid" id="actGrid"></div>
+</section>
+
+<!-- LOCATION -->
+<section id="location">
+  <div class="loc-grid">
+    <div>
+      <div class="sec-label">Find Us</div>
+      <h2 class="sec-heading">Our <span class="g">Location</span></h2>
+      <div class="gold-bar"></div>
+      <div class="citem"><div class="cicon">📍</div><div><div class="clbl">Address</div><div class="cval">Air Force Comprehensive School<br>Uyo, Akwa Ibom State, Nigeria</div></div></div>
+      <div class="citem"><div class="cicon">🗺️</div><div><div class="clbl">State</div><div class="cval">Akwa Ibom State — South-South Zone<br>Uyo Local Government Area</div></div></div>
+      <div class="citem"><div class="cicon">✈️</div><div><div class="clbl">Nearest Airport</div><div class="cval">Victor Attah International Airport, Uyo<br>(~8 km from school)</div></div></div>
+      <div class="citem"><div class="cicon">🪖</div><div><div class="clbl">Authority</div><div class="cval">Nigerian Air Force Directorate of Education</div></div></div>
+      <div class="citem"><div class="cicon">🌐</div><div><div class="clbl">NAF Education Portal</div><div class="cval">www.nafec.org.ng</div></div></div>
+    </div>
+    <div class="map-wrap">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63578.29185295093!2d7.9057!3d5.0527!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x105d5c0c16ef8f09%3A0x61a72c82be8d61de!2sUyo%2C%20Akwa%20Ibom%20State!5e0!3m2!1sen!2sng!4v1" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-logo-row">
+        <div class="foot-logo-ring" id="footLogo"><span style="font-family:'Cinzel',serif;font-size:18px;color:var(--gold);" id="footLogoTxt">✈</span></div>
+        <div><div class="foot-brand-name">Air Force Comprehensive School, Uyo</div><div class="foot-motto">Perseverance Breeds Success</div></div>
+      </div>
+      <p class="foot-desc">A premier Nigerian Air Force boarding school providing excellence in education and discipline since 1999. Uyo, Akwa Ibom State.</p>
+    </div>
+    <div><div class="fcol-title">Quick Links</div><ul class="flinks"><li><a href="#about">About AFCS</a></li><li><a href="#schedule">Daily Schedule</a></li><li><a href="#news">News</a></li><li><a href="#menu">Dining Menu</a></li></ul></div>
+    <div><div class="fcol-title">Academics</div><ul class="flinks"><li><a href="#classes">Class List</a></li><li><a href="#activities">Activities</a></li><li><a href="#location">Location</a></li><li><a onclick="openAdminLogin()" style="cursor:pointer;">Admin Portal</a></li></ul></div>
+    <div><div class="fcol-title">Contact</div><ul class="flinks"><li><a>AFCS, Uyo</a></li><li><a>Akwa Ibom State</a></li><li><a>Nigeria</a></li><li><a href="https://www.nafec.org.ng" target="_blank">nafec.org.ng</a></li></ul></div>
+  </div>
+  <div class="foot-bottom">
+    <div class="foot-copy">© 2025 Air Force Comprehensive School, Uyo. All rights reserved.</div>
+    <div class="foot-naf">NIGERIAN AIR FORCE · DIRECTORATE OF EDUCATION</div>
+    <button class="admin-trigger" onclick="openAdminLogin()">[ ADMIN ]</button>
+  </div>
+</footer>
+
+</div><!-- /siteView -->
+
+<!-- ══════════════════════ LOGIN MODAL ══════════════════════ -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal-box">
+    <div class="modal-logo">✈</div>
+    <div class="modal-title">Admin Portal</div>
+    <div class="modal-sub">AFCS UYO · SECURE ACCESS</div>
+    <label class="flabel">Username</label>
+    <input type="text" class="finput" id="loginUser" placeholder="Username" value="admin"/>
+    <label class="flabel">Password</label>
+    <input type="password" class="finput" id="loginPass" placeholder="Password"/>
+    <button class="btn-pri" style="width:100%;" onclick="doLogin()">ACCESS ADMIN PANEL</button>
+    <div class="modal-err" id="loginErr">Incorrect credentials. Try again.</div>
+    <p style="font-size:11px;color:var(--gray);margin-top:12px;font-family:'JetBrains Mono',monospace;">Default: admin / afcs2025</p>
+    <button class="btn-modal-close" onclick="closeLoginModal()">✕</button>
+  </div>
+</div>
+
+<!-- ══════════════════════ ADMIN VIEW ══════════════════════ -->
+<div id="adminView">
+  <div class="admin-layout">
+
+    <!-- Sidebar -->
+    <aside class="adm-sidebar">
+      <div class="adm-shead">
+        <div class="adm-slogo" id="admSidebarLogo"><span class="adm-slogo-txt" id="admLogoTxt">AFCS</span></div>
+        <div class="adm-sbrand">Air Force Comprehensive School<small>Admin Panel · Uyo</small></div>
+      </div>
+      <nav class="adm-snav">
+        <div class="snav-lbl">Overview</div>
+        <button class="slink on" onclick="admPage('dashboard',this)"><span class="si">🏠</span> Dashboard</button>
+        <div class="snav-lbl">Content</div>
+        <button class="slink" onclick="admPage('news',this)"><span class="si">📰</span> News & Updates</button>
+        <button class="slink" onclick="admPage('menu',this)"><span class="si">🍽️</span> Dining Menu</button>
+        <button class="slink" onclick="admPage('activities',this)"><span class="si">🎯</span> Activities</button>
+        <div class="snav-lbl">Academics</div>
+        <button class="slink" onclick="admPage('classes',this)"><span class="si">📚</span> Classes & Students</button>
+        <div class="snav-lbl">Settings</div>
+        <button class="slink" onclick="admPage('logo',this)"><span class="si">🖼️</span> School Logo</button>
+        <button class="slink" onclick="admPage('settings',this)"><span class="si">⚙️</span> Settings & Password</button>
+      </nav>
+      <div class="adm-sfooter">
+        <button class="btn-site" onclick="exitAdmin()">← VIEW WEBSITE</button>
+        <button class="btn-logout" onclick="doLogout()">LOGOUT</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="adm-main">
+      <div class="adm-topbar">
+        <div class="adm-page-title" id="admPageTitle">Dashboard</div>
+        <span class="adm-badge">ADMIN ACCESS</span>
+      </div>
+
+      <!-- DASHBOARD -->
+      <div class="apage on" id="apage-dashboard">
+        <div class="dash-grid" id="dashGrid"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+          <div class="panel">
+            <h3>⚡ Quick Actions</h3>
+            <div style="display:flex;flex-direction:column;gap:9px;">
+              <button class="btn-save" onclick="admPage('news',null)">+ Add News Item</button>
+              <button class="btn-save" onclick="admPage('menu',null)">+ Update Today's Menu</button>
+              <button class="btn-save" onclick="admPage('classes',null)">+ Manage Classes</button>
+              <button class="btn-save" onclick="admPage('logo',null)">+ Upload School Logo</button>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>ℹ️ School Info</h3>
+            <table style="width:100%;border-collapse:collapse;font-size:14px;">
+              <tr><td style="padding:7px 0;color:var(--gray);font-family:'JetBrains Mono',monospace;font-size:10px;">SCHOOL</td><td style="color:var(--light);">Air Force Comprehensive School, Uyo</td></tr>
+              <tr><td style="padding:7px 0;color:var(--gray);font-family:'JetBrains Mono',monospace;font-size:10px;">MOTTO</td><td style="color:var(--gold);font-style:italic;">Perseverance Breeds Success</td></tr>
+              <tr><td style="padding:7px 0;color:var(--gray);font-family:'JetBrains Mono',monospace;font-size:10px;">EST.</td><td style="color:var(--light);">January 1999</td></tr>
+              <tr><td style="padding:7px 0;color:var(--gray);font-family:'JetBrains Mono',monospace;font-size:10px;">LOCATION</td><td style="color:var(--light);">Uyo, Akwa Ibom State</td></tr>
+              <tr><td style="padding:7px 0;color:var(--gray);font-family:'JetBrains Mono',monospace;font-size:10px;">TYPE</td><td style="color:var(--light);">Co-educational Boarding</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEWS -->
+      <div class="apage" id="apage-news">
+        <div class="panel">
+          <h3>➕ Add / Edit News</h3>
+          <input type="hidden" id="newsId"/>
+          <div class="frow">
+            <div class="ffield" style="flex:2;"><label>Headline</label><input type="text" id="nTitle" placeholder="News title..."/></div>
+            <div class="ffield" style="max-width:150px;"><label>Category</label>
+              <select id="nCat"><option>GENERAL</option><option>ACADEMIC</option><option>SPORTS</option><option>EXAMS</option><option>EVENTS</option><option>AWARDS</option></select>
+            </div>
+          </div>
+          <div class="ffield"><label>Body</label><textarea id="nBody" placeholder="News content..."></textarea></div>
+          <div style="display:flex;gap:10px;margin-top:10px;">
+            <button class="btn-save" onclick="saveNews()">SAVE NEWS</button>
+            <button class="btn-clr" onclick="clearNews()">CLEAR</button>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>📋 All News Items</h3>
+          <div id="newsList"></div>
+        </div>
+      </div>
+
+      <!-- MENU -->
+      <div class="apage" id="apage-menu">
+        <div class="panel">
+          <h3>🍽️ Edit Today's Dining Menu</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;" id="menuEditor"></div>
+          <div style="margin-top:18px;"><button class="btn-save" onclick="saveMenu()">SAVE MENU</button></div>
+        </div>
+      </div>
+
+      <!-- ACTIVITIES -->
+      <div class="apage" id="apage-activities">
+        <div class="panel">
+          <h3>➕ Add / Edit Activity</h3>
+          <input type="hidden" id="actId"/>
+          <div class="frow">
+            <div class="ffield"><label>Activity Name</label><input type="text" id="actName" placeholder="e.g. Football"/></div>
+            <div class="ffield" style="max-width:70px;"><label>Icon</label><input type="text" id="actIcon" placeholder="⚽"/></div>
+            <div class="ffield" style="max-width:160px;"><label>Day(s)</label><input type="text" id="actDay" placeholder="MON & WED"/></div>
+          </div>
+          <div class="ffield"><label>Description</label><textarea id="actDesc" placeholder="Activity description..."></textarea></div>
+          <div style="display:flex;gap:10px;margin-top:10px;">
+            <button class="btn-save" onclick="saveActivity()">SAVE ACTIVITY</button>
+            <button class="btn-clr" onclick="clearAct()">CLEAR</button>
+          </div>
+        </div>
+        <div class="panel"><h3>📋 All Activities</h3><div id="actList"></div></div>
+      </div>
+
+      <!-- CLASSES -->
+      <div class="apage" id="apage-classes">
+        <div class="panel">
+          <h3>🎓 Class Management — <span id="clsCurrentLabel" style="color:var(--gold2);">JSS1 A</span></h3>
+          <div class="cls-lvl-tabs" id="admLvlTabs"></div>
+          <div class="cls-sec-tabs" id="admSecTabs"></div>
+          <div id="classEditor"></div>
+        </div>
+      </div>
+
+      <!-- LOGO -->
+      <div class="apage" id="apage-logo">
+        <div class="panel">
+          <h3>🖼️ Upload School Logo</h3>
+          <p style="font-size:14px;color:var(--light);margin-bottom:18px;">Upload the official AFCS Uyo school logo. It will appear on the website header, hero section, and footer. Recommended: circular PNG, at least 300×300px.</p>
+          <div class="logo-drop" onclick="document.getElementById('logoFile').click()">
+            <div class="logo-drop-title">📁 Click to Upload Logo</div>
+            <div class="logo-drop-sub">PNG, JPG, SVG — saved directly to this file</div>
+            <input type="file" id="logoFile" accept="image/*" onchange="handleLogoUpload(event)"/>
+          </div>
+          <div class="logo-prev-wrap" id="logoPrevWrap">
+            <img id="logoPrev" class="logo-prev" src="" alt="Logo preview"/>
+            <br><br>
+            <button class="btn-save" onclick="saveLogo()">✓ SET AS SCHOOL LOGO</button>
+          </div>
+          <div id="currentLogoWrap" style="margin-top:18px;display:none;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);margin-bottom:8px;">CURRENT LOGO</div>
+            <img id="currentLogoImg" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--gold);object-fit:cover;"/>
+            <br><br>
+            <button class="btn-del2" onclick="removeLogo()">Remove Logo</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="apage" id="apage-settings">
+        <div class="panel">
+          <h3>⚙️ School Information</h3>
+          <div class="frow">
+            <div class="ffield"><label>School Name</label><input type="text" id="sName" value="Air Force Comprehensive School, Uyo"/></div>
+            <div class="ffield"><label>Short Name</label><input type="text" id="sShort" value="AFCS Uyo"/></div>
+          </div>
+          <div class="frow">
+            <div class="ffield"><label>Motto</label><input type="text" id="sMotto" value="Perseverance Breeds Success"/></div>
+            <div class="ffield"><label>Established</label><input type="text" id="sEst" value="January 1999"/></div>
+          </div>
+          <div class="frow">
+            <div class="ffield"><label>Address</label><input type="text" id="sAddr" value="Uyo, Akwa Ibom State, Nigeria"/></div>
+            <div class="ffield"><label>Phone / Contact</label><input type="text" id="sPhone" placeholder="e.g. +234..."/></div>
+          </div>
+          <button class="btn-save" onclick="saveSettings()" style="margin-top:4px;">SAVE SETTINGS</button>
+        </div>
+        <div class="panel">
+          <h3>🔒 Change Admin Password</h3>
+          <div class="frow">
+            <div class="ffield"><label>New Password</label><input type="password" id="newPass" placeholder="Enter new password"/></div>
+            <div class="ffield"><label>Confirm Password</label><input type="password" id="confPass" placeholder="Confirm new password"/></div>
+          </div>
+          <button class="btn-save" onclick="changePass()">CHANGE PASSWORD</button>
+        </div>
+        <div class="panel">
+          <h3>🗑️ Danger Zone</h3>
+          <p style="font-size:14px;color:var(--light);margin-bottom:14px;">Reset all school data back to defaults. This cannot be undone.</p>
+          <button onclick="resetAll()" style="font-family:'Cinzel',serif;font-size:11px;font-weight:700;letter-spacing:2px;background:rgba(155,34,38,.3);color:#ff9a9a;padding:10px 26px;border:1px solid rgba(155,34,38,.4);border-radius:2px;cursor:pointer;">RESET ALL DATA</button>
+        </div>
+      </div>
+
+    </div><!-- /adm-main -->
+  </div><!-- /admin-layout -->
+</div><!-- /adminView -->
+
+<!-- TOAST -->
+<div id="toast">✓ Saved</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  DATA STORE — localStorage-backed
+// ══════════════════════════════════════════════
+const LEVELS   = ['JSS1','JSS2','JSS3','SS1','SS2','SS3'];
+const SECTIONS = ['A','B','C','D'];
+
+const DEFAULTS = {
+  news: [
+    {id:1,title:"2024/2025 Academic Session in Full Swing",body:"The 2024/2025 academic session is now active. All students are expected to adhere to school rules and regulations for a productive and rewarding term.",category:"ACADEMIC",date:"2025-01-15"},
+    {id:2,title:"Inter-House Sports Competition Announced",body:"Preparations are ongoing for the annual inter-house sports competition. Students are encouraged to train actively in their respective houses.",category:"SPORTS",date:"2025-02-10"},
+    {id:3,title:"WAEC/NECO Registration Notice — SS3",body:"SS3 students are reminded to complete their WAEC and NECO examination registration before the stipulated deadline. Contact the examination officer.",category:"EXAMS",date:"2025-01-20"}
+  ],
+  menu: {
+    breakfast:{items:["Akara & Ogi","Bread & Tea","Boiled Eggs","Fresh Fruits"]},
+    lunch:    {items:["Jollof Rice","Fried Chicken","Vegetable Soup & Eba","Coleslaw"]},
+    dinner:   {items:["White Rice & Stew","Beans Porridge","Fried Plantain","Bottled Water"]}
+  },
+  activities: [
+    {id:1,icon:"⚽",name:"Football",desc:"Inter-class and inter-house football tournaments. Builds teamwork and athleticism.",day:"MON & WED"},
+    {id:2,icon:"🏀",name:"Basketball",desc:"Competitive basketball for boys and girls on the school court.",day:"MON & WED"},
+    {id:3,icon:"📚",name:"Quiz Competitions",desc:"Academic quiz competitions across all subjects — fostering excellence and healthy competition.",day:"AS SCHEDULED"},
+    {id:4,icon:"🎭",name:"Cultural Events",desc:"Drama, dance, and cultural displays celebrating Nigerian heritage and Air Force traditions.",day:"AS SCHEDULED"},
+    {id:5,icon:"⛪",name:"Chapel / Mosque",desc:"Religious activities for Christian and Muslim students every Thursday and Sunday.",day:"THU & SUN"},
+    {id:6,icon:"🌿",name:"Labour",desc:"Environmental sanitation keeping the school clean, orderly and disciplined.",day:"TUE & FRI"},
+    {id:7,icon:"🏆",name:"Inter-House Sports",desc:"Annual inter-house sports competition — a highlight of the school calendar.",day:"ANNUAL"},
+    {id:8,icon:"🎓",name:"Debate Club",desc:"Public speaking and debating skills developed through intra-school competitions.",day:"AS SCHEDULED"}
+  ],
+  classes:{},
+  logo: null,
+  password: 'afcs2025',
+  settings:{name:"Air Force Comprehensive School, Uyo",short:"AFCS Uyo",motto:"Perseverance Breeds Success",est:"January 1999",address:"Uyo, Akwa Ibom State",phone:""}
+};
+
+function load(key){ try{ const v=localStorage.getItem('afcs_'+key); return v?JSON.parse(v):JSON.parse(JSON.stringify(DEFAULTS[key]||null)); }catch{return JSON.parse(JSON.stringify(DEFAULTS[key]||null));} }
+function save(key,val){ try{ localStorage.setItem('afcs_'+key,JSON.stringify(val)); }catch{} }
+
+// ══════════════════════════════════════════════
+//  STARS
+// ══════════════════════════════════════════════
+(function(){
+  const box=document.getElementById('starsBox');
+  for(let i=0;i<60;i++){
+    const s=document.createElement('div'); s.className='star';
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--dl:${Math.random()*4}s;`;
+    box.appendChild(s);
+  }
+})();
+
+// ══════════════════════════════════════════════
+//  TICKER
+// ══════════════════════════════════════════════
+function buildTicker(){
+  const items=['✦ AFCS UYO — Excellence in Education & Discipline','2024/2025 Academic Session Now Active','WAEC/NECO Results — Outstanding Performance','Inter-House Sports Competition — Coming Soon','Perseverance Breeds Success ✦'];
+  const t=document.getElementById('tickerInner');
+  const html=items.map(i=>`<span class="tick-item">${i}</span><span style="color:rgba(10,22,40,.4);flex-shrink:0;"> | </span>`).join('');
+  t.innerHTML=html+html; // duplicate for seamless loop
+}
+
+// ══════════════════════════════════════════════
+//  SCHEDULE DATA
+// ══════════════════════════════════════════════
+const BASE_SCHED=[
+  {time:'04:00 HRS',title:'Wake-Up & Morning Prayers',detail:'Students rise, morning prayers conducted in dormitories.',dot:true},
+  {time:'04:30 HRS',title:'Physical Exercise (PT)',detail:'Morning PT — jogging, drills and physical conditioning.'},
+  {time:'06:00 HRS',title:'Personal Hygiene & Area Cleaning',detail:'Students bathe, groom, arrange bunks and tidy surroundings to military standard.'},
+  {time:'07:00 HRS',title:'Breakfast',detail:'Students proceed to the dining hall for the first meal of the day.'},
+];
+const SCHED={
+  mon:[...BASE_SCHED,
+    {time:'08:00 HRS',title:'Assembly',detail:'Monday full-school assembly — announcements, school song, parade and inspection.',badge:'<span class="badge b-asm">ASSEMBLY</span>'},
+    {time:'08:30 HRS',title:'Academic Classes',detail:'Morning academic sessions — core and elective subjects as per timetable.'},
+    {time:'14:00 HRS',title:'End of Morning Classes',detail:'Academic morning session concludes.'},
+    {time:'14:40 HRS',title:'Lunch',detail:'Students proceed to dining hall for afternoon meal.'},
+    {time:'14:40 HRS',title:'Siesta',detail:'Afternoon rest period in dormitories.'},
+    {time:'15:45 HRS',title:'Afternoon Prep',detail:'Supervised afternoon study and revision begins.'},
+    {time:'17:00 HRS',title:'Sports',detail:'Monday sports — football, athletics, basketball, volleyball.',badge:'<span class="badge b-spt">SPORTS DAY</span>'},
+    {time:'18:00 HRS',title:'Dinner',detail:'Students have evening meal in dining hall.'},
+    {time:'19:00 HRS',title:'Night Prep',detail:'Evening supervised study and homework period.'},
+    {time:'21:00 HRS',title:'Head Count',detail:'Roll call and dormitory head count by duty officers.'},
+    {time:'22:00 HRS',title:'Lights Out',detail:'Students retire to bed to prepare for the next day.'},
+  ],
+  tue:[...BASE_SCHED,
+    {time:'08:00 HRS',title:'Academic Classes',detail:'Morning academic sessions — no assembly today.'},
+    {time:'14:00 HRS',title:'End of Morning Classes',detail:'Academic session concludes.'},
+    {time:'14:40 HRS',title:'Lunch & Siesta',detail:'Afternoon meal followed by rest period.'},
+    {time:'15:45 HRS',title:'Afternoon Prep',detail:'Supervised afternoon study.'},
+    {time:'17:00 HRS',title:'Labour',detail:'Tuesday environmental sanitation — school maintenance and community service.',badge:'<span class="badge b-lab">LABOUR</span>'},
+    {time:'18:00 HRS',title:'Dinner',detail:'Evening meal.'},
+    {time:'19:00 HRS',title:'Night Prep',detail:'Evening supervised study.'},
+    {time:'21:00 HRS',title:'Head Count',detail:'Roll call in dormitories.'},
+    {time:'22:00 HRS',title:'Lights Out',detail:'Students retire to bed.'},
+  ],
+  wed:[...BASE_SCHED,
+    {time:'08:00 HRS',title:'Assembly',detail:'Wednesday midweek assembly — motivational talks, updates and awards.',badge:'<span class="badge b-asm">ASSEMBLY</span>'},
+    {time:'08:30 HRS',title:'Academic Classes',detail:'Morning academic sessions.'},
+    {time:'14:00 HRS',title:'End of Morning Classes',detail:'Academic session concludes.'},
+    {time:'14:40 HRS',title:'Lunch & Siesta',detail:'Afternoon meal followed by rest period.'},
+    {time:'15:45 HRS',title:'Afternoon Prep',detail:'Supervised afternoon study.'},
+    {time:'17:00 HRS',title:'Sports',detail:'Wednesday sports — inter-class competitions and recreational activities.',badge:'<span class="badge b-spt">SPORTS DAY</span>'},
+    {time:'18:00 HRS',title:'Dinner',detail:'Evening meal.'},
+    {time:'19:00 HRS',title:'Night Prep',detail:'Evening supervised study.'},
+    {time:'21:00 HRS',title:'Head Count',detail:'Roll call.'},
+    {time:'22:00 HRS',title:'Lights Out',detail:'Students retire to bed.'},
+  ],
+  thu:[...BASE_SCHED,
+    {time:'08:00 HRS',title:'Academic Classes',detail:'Morning academic sessions.'},
+    {time:'14:00 HRS',title:'End of Morning Classes',detail:'Academic session concludes.'},
+    {time:'14:40 HRS',title:'Lunch & Siesta',detail:'Afternoon meal followed by rest period.'},
+    {time:'15:45 HRS',title:'Afternoon Prep',detail:'Supervised afternoon study.'},
+    {time:'17:00 HRS',title:'Evening Church / Service',detail:'Thursday interdenominational Christian service and Muslim fellowship.',badge:'<span class="badge b-svc">EVENING SERVICE</span>'},
+    {time:'18:00 HRS',title:'Dinner',detail:'Evening meal.'},
+    {time:'19:00 HRS',title:'Night Prep',detail:'Evening supervised study.'},
+    {time:'21:00 HRS',title:'Head Count',detail:'Roll call.'},
+    {time:'22:00 HRS',title:'Lights Out',detail:'Students retire to bed.'},
+  ],
+  fri:[...BASE_SCHED,
+    {time:'08:00 HRS',title:'Assembly',detail:"Friday assembly — end-of-week review, commendations and weekend announcements.",badge:'<span class="badge b-asm">ASSEMBLY</span>'},
+    {time:'08:30 HRS',title:'Academic Classes',detail:'Morning academic sessions.'},
+    {time:'14:00 HRS',title:'End of Morning Classes',detail:'Academic session concludes.'},
+    {time:'14:40 HRS',title:'Lunch & Siesta',detail:'Afternoon meal followed by rest period.'},
+    {time:'15:45 HRS',title:'Afternoon Prep',detail:'Supervised afternoon study.'},
+    {time:'17:00 HRS',title:'Labour',detail:'Friday thorough sanitation — complete school cleaning and maintenance.',badge:'<span class="badge b-lab">LABOUR</span>'},
+    {time:'18:00 HRS',title:'Dinner',detail:'Evening meal.'},
+    {time:'19:00 HRS',title:'Night Prep',detail:'Evening supervised study.'},
+    {time:'21:00 HRS',title:'Head Count',detail:'Roll call.'},
+    {time:'22:00 HRS',title:'Lights Out',detail:'Students retire to bed.'},
+  ],
+  sat:[
+    {time:'06:00 HRS',title:'Wake-Up',detail:'Saturday — slightly later wake-up.',dot:true},
+    {time:'07:00 HRS',title:'Breakfast',detail:'Students have morning meal.'},
+    {time:'08:00 HRS',title:'Saturday Chores & Laundry',detail:'General school sanitation and personal laundry.'},
+    {time:'10:00 HRS',title:'Supervised Study',detail:'Morning academic revision session.'},
+    {time:'13:00 HRS',title:'Lunch',detail:'Afternoon meal.'},
+    {time:'15:00 HRS',title:'Free Period / Recreation',detail:'Students engage in recreational activities — games, entertainment and social time.'},
+    {time:'18:00 HRS',title:'Dinner',detail:'Evening meal.'},
+    {time:'21:00 HRS',title:'Head Count',detail:'Roll call in dormitories.'},
+    {time:'22:00 HRS',title:'Lights Out',detail:'Students retire to bed.'},
+  ],
+  sun:[
+    {time:'06:00 HRS',title:'Wake-Up',detail:"Sunday morning — students rise for the Lord's day.",dot:true},
+    {time:'07:00 HRS',title:'Breakfast',detail:'Morning meal.'},
+    {time:'08:00 HRS',title:'Sunday Service',detail:"Students attend Sunday church and Muslim Jumu'ah prayers."},
+    {time:'11:30 HRS',title:'Visiting Hours',detail:'Parents and guardians may visit students on designated Sundays.'},
+    {time:'13:00 HRS',title:'Lunch',detail:'Special Sunday afternoon meal.'},
+    {time:'15:00 HRS',title:'Rest & Recreation',detail:'Free period — reading, board games, socialising.'},
+    {time:'18:00 HRS',title:'Dinner',detail:'Evening meal.'},
+    {time:'19:30 HRS',title:'Night Prep',detail:'Preparation for the new week.'},
+    {time:'21:00 HRS',title:'Head Count',detail:'Roll call.'},
+    {time:'22:00 HRS',title:'Lights Out',detail:'Students retire to bed.'},
+  ]
+};
+
+let currentDay='mon';
+function buildDayTabs(){
+  const el=document.getElementById('dayTabsEl');
+  const days=[['mon','Monday'],['tue','Tuesday'],['wed','Wednesday'],['thu','Thursday'],['fri','Friday'],['sat','Saturday'],['sun','Sunday']];
+  el.innerHTML=days.map(([d,l])=>`<div class="dtab${d===currentDay?' on':''}" onclick="switchDay('${d}',this)">${l}</div>`).join('');
+}
+function switchDay(day,el){
+  currentDay=day;
+  document.querySelectorAll('.dtab').forEach(t=>t.classList.remove('on'));
+  if(el) el.classList.add('on');
+  renderTimeline();
+}
+function renderTimeline(){
+  const tl=document.getElementById('timelineEl');
+  tl.innerHTML='';
+  (SCHED[currentDay]||[]).forEach((item,i)=>{
+    const d=document.createElement('div');
+    d.className='titem'; d.style.animationDelay=`${i*0.05}s`;
+    d.innerHTML=`<div class="tdot${item.dot?' lit':''}"></div><div class="ttime">${item.time}</div><div class="tactivity">${item.title}${item.badge||''}</div><div class="tdetail">${item.detail}</div>`;
+    tl.appendChild(d);
+  });
+}
+
+// ══════════════════════════════════════════════
+//  NEWS RENDER
+// ══════════════════════════════════════════════
+function renderNews(){
+  const news=load('news');
+  const grid=document.getElementById('newsGrid');
+  if(!news||!news.length){grid.innerHTML='<div class="empty-state">No news yet — add some from the Admin panel.</div>';return;}
+  grid.innerHTML=news.map(n=>`
+    <div class="ncard">
+      <div class="ncard-top">
+        <div class="ncard-date">${fmtDate(n.date)}</div>
+        <div class="ncard-title">${esc(n.title)}</div>
+        <div class="ncard-body">${esc(n.body)}</div>
+      </div>
+      <div class="ncard-foot"><span class="ntag">${n.category||'GENERAL'}</span></div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════════
+//  MENU RENDER
+// ══════════════════════════════════════════════
+function renderMenu(){
+  const menu=load('menu');
+  const meals=[{key:'breakfast',label:'Breakfast',icon:'🌅',time:'07:00 HRS'},{key:'lunch',label:'Lunch',icon:'☀️',time:'14:40 HRS'},{key:'dinner',label:'Dinner',icon:'🌙',time:'18:00 HRS'}];
+  document.getElementById('menuGrid').innerHTML=meals.map(m=>{
+    const items=(menu[m.key]&&menu[m.key].items)||[];
+    return `<div class="mcard">
+      <div class="mcard-head"><div class="meal-lbl">${m.time}</div><div class="meal-name">${m.icon} ${m.label}</div></div>
+      <div class="mcard-body">${items.length?items.map(i=>`<div class="mitem">${esc(i)}</div>`).join(''):'<div class="mitem" style="color:var(--gray);">Menu not set</div>'}</div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════
+//  CLASSES RENDER (site)
+// ══════════════════════════════════════════════
+let siteLvl='JSS1';
+function buildSiteLvlTabs(){
+  const el=document.getElementById('siteLvlTabs');
+  el.innerHTML=LEVELS.map((l,i)=>`<div class="ltab${i===0?' on':''}" onclick="switchSiteLvl('${l}',this)">${l}</div>`).join('');
+  renderSiteSections();
+}
+function switchSiteLvl(lvl,el){
+  siteLvl=lvl;
+  document.querySelectorAll('#siteLvlTabs .ltab').forEach(t=>t.classList.remove('on'));
+  if(el)el.classList.add('on');
+  renderSiteSections();
+}
+function renderSiteSections(){
+  const classes=load('classes');
+  document.getElementById('siteSections').innerHTML=SECTIONS.map(s=>{
+    const key=`${siteLvl}${s}`;
+    const d=classes[key]||{teacher:'TBA',captain:'TBA',count:0};
+    return `<div class="scard">
+      <div class="scard-name">${siteLvl} ${s}</div>
+      <div class="sinfo-lbl">Class Teacher</div><div class="sinfo-val">${esc(d.teacher||'TBA')}</div>
+      <div class="sinfo-lbl">Class Captain</div><div class="sinfo-val">${esc(d.captain||'TBA')}</div>
+      <div class="scount">Students: <span>${d.count||0}</span></div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════
+//  ACTIVITIES RENDER (site)
+// ══════════════════════════════════════════════
+function renderActivities(){
+  const acts=load('activities');
+  const grid=document.getElementById('actGrid');
+  if(!acts||!acts.length){grid.innerHTML='<div class="empty-state">No activities yet.</div>';return;}
+  grid.innerHTML=acts.map(a=>`
+    <div class="acard">
+      <div class="acard-icon">${a.icon||'🎯'}</div>
+      <div class="acard-name">${esc(a.name)}</div>
+      <div class="acard-desc">${esc(a.desc)}</div>
+      <div class="acard-day">${esc(a.day||'')}</div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════════
+//  LOGO
+// ══════════════════════════════════════════════
+function applyLogo(){
+  const logo=load('logo');
+  const rings=['navLogo','heroRing','footLogo','admSidebarLogo'];
+  if(logo){
+    rings.forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el)return;
+      el.innerHTML=`<img src="${logo}" alt="AFCS Logo"/>`;
+    });
+    // Show current in admin
+    const wrap=document.getElementById('currentLogoWrap');
+    const img=document.getElementById('currentLogoImg');
+    if(wrap){wrap.style.display='block';}
+    if(img){img.src=logo;}
+  } else {
+    document.getElementById('navLogo').innerHTML='<span class="nav-logo-text">AFCS</span>';
+    document.getElementById('heroRing').innerHTML='<div class="hero-ring-placeholder">AFCS<small>UYO</small></div>';
+    document.getElementById('footLogo').innerHTML='<span style="font-family:Cinzel,serif;font-size:18px;color:var(--gold);">✈</span>';
+    if(document.getElementById('admSidebarLogo'))
+      document.getElementById('admSidebarLogo').innerHTML='<span class="adm-slogo-txt">AFCS</span>';
+  }
+}
+
+let pendingLogo=null;
+function handleLogoUpload(e){
+  const file=e.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    pendingLogo=ev.target.result;
+    document.getElementById('logoPrev').src=pendingLogo;
+    document.getElementById('logoPrevWrap').style.display='block';
+  };
+  reader.readAsDataURL(file);
+}
+function saveLogo(){
+  if(!pendingLogo)return;
+  save('logo',pendingLogo);
+  applyLogo();
+  document.getElementById('currentLogoWrap').style.display='block';
+  document.getElementById('currentLogoImg').src=pendingLogo;
+  toast('✓ Logo saved and applied!');
+}
+function removeLogo(){
+  if(!confirm('Remove current logo?'))return;
+  save('logo',null);
+  pendingLogo=null;
+  document.getElementById('logoPrevWrap').style.display='none';
+  document.getElementById('currentLogoWrap').style.display='none';
+  applyLogo();
+  toast('✓ Logo removed');
+}
+
+// ══════════════════════════════════════════════
+//  LOGIN / AUTH
+// ══════════════════════════════════════════════
+function openAdminLogin(){document.getElementById('loginModal').classList.add('show');document.getElementById('loginPass').value='';document.getElementById('loginErr').style.display='none';}
+function closeLoginModal(){document.getElementById('loginModal').classList.remove('show');}
+function doLogin(){
+  const user=document.getElementById('loginUser').value;
+  const pass=document.getElementById('loginPass').value;
+  const stored=load('password')||'afcs2025';
+  if(user==='admin'&&pass===stored){
+    closeLoginModal();
+    document.getElementById('siteView').style.display='none';
+    document.getElementById('adminView').style.display='block';
+    initAdmin();
+  } else {
+    document.getElementById('loginErr').style.display='block';
+  }
+}
+document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+function doLogout(){
+  document.getElementById('adminView').style.display='none';
+  document.getElementById('siteView').style.display='block';
+}
+function exitAdmin(){doLogout();}
+
+// ══════════════════════════════════════════════
+//  ADMIN NAVIGATION
+// ══════════════════════════════════════════════
+function admPage(name,btn){
+  document.querySelectorAll('.apage').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.slink').forEach(l=>l.classList.remove('on'));
+  const pg=document.getElementById('apage-'+name);
+  if(pg)pg.classList.add('on');
+  if(btn)btn.classList.add('on');
+  const titles={dashboard:'Dashboard',news:'News & Updates',menu:'Dining Menu',activities:'Activities',classes:'Classes & Students',logo:'School Logo',settings:'Settings & Password'};
+  document.getElementById('admPageTitle').textContent=titles[name]||name;
+  // Refresh page-specific content
+  if(name==='dashboard')renderDash();
+  if(name==='news'){renderNewsList();}
+  if(name==='menu')buildMenuEditor();
+  if(name==='activities')renderActList();
+  if(name==='classes')buildAdmClassEditor();
+  if(name==='logo')refreshLogoPage();
+}
+
+function initAdmin(){
+  applyLogo();
+  renderDash();
+  buildAdmLvlTabs();
+}
+
+// ══════════════════════════════════════════════
+//  DASHBOARD
+// ══════════════════════════════════════════════
+function renderDash(){
+  const news=load('news');
+  const acts=load('activities');
+  const classes=load('classes');
+  const total=Object.values(classes).reduce((s,c)=>s+(c.count||0),0);
+  const logo=load('logo');
+  document.getElementById('dashGrid').innerHTML=`
+    <div class="dstat"><div class="dstat-icon">📰</div><div class="dstat-val">${(news||[]).length}</div><div class="dstat-lbl">News Items</div></div>
+    <div class="dstat"><div class="dstat-icon">🎓</div><div class="dstat-val">24</div><div class="dstat-lbl">Classes</div></div>
+    <div class="dstat"><div class="dstat-icon">👨‍🎓</div><div class="dstat-val">${total||'—'}</div><div class="dstat-lbl">Students</div></div>
+    <div class="dstat"><div class="dstat-icon">🎯</div><div class="dstat-val">${(acts||[]).length}</div><div class="dstat-lbl">Activities</div></div>
+    <div class="dstat"><div class="dstat-icon">🍽️</div><div class="dstat-val">3</div><div class="dstat-lbl">Meal Periods</div></div>
+    <div class="dstat"><div class="dstat-icon">🖼️</div><div class="dstat-val">${logo?'✓':'—'}</div><div class="dstat-lbl">Logo Set</div></div>
+  `;
+}
+
+// ══════════════════════════════════════════════
+//  NEWS ADMIN
+// ══════════════════════════════════════════════
+function saveNews(){
+  const id=document.getElementById('newsId').value;
+  const title=document.getElementById('nTitle').value.trim();
+  const body=document.getElementById('nBody').value.trim();
+  const category=document.getElementById('nCat').value;
+  if(!title||!body)return toast('⚠ Fill in title and body');
+  let news=load('news')||[];
+  if(id){
+    const idx=news.findIndex(n=>n.id==id);
+    if(idx>-1)news[idx]={...news[idx],title,body,category};
+  } else {
+    news.unshift({id:Date.now(),title,body,category,date:new Date().toISOString().split('T')[0]});
+  }
+  save('news',news);
+  clearNews(); renderNewsList(); renderNews(); renderDash(); toast('✓ News saved');
+}
+function clearNews(){document.getElementById('newsId').value='';document.getElementById('nTitle').value='';document.getElementById('nBody').value='';document.getElementById('nCat').value='GENERAL';}
+function renderNewsList(){
+  const news=load('news')||[];
+  const el=document.getElementById('newsList');
+  if(!news.length){el.innerHTML='<p style="color:var(--gray);font-size:14px;">No news yet. Add above.</p>';return;}
+  el.innerHTML=`<table class="dtable"><thead><tr><th>Date</th><th>Title</th><th>Category</th><th>Actions</th></tr></thead><tbody>
+    ${news.map(n=>`<tr>
+      <td>${fmtDate(n.date)}</td>
+      <td style="max-width:300px;">${esc(n.title)}</td>
+      <td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);">${n.category}</span></td>
+      <td><span style="display:flex;gap:6px;">
+        <button class="btn-edit2" onclick="editNews(${n.id})">Edit</button>
+        <button class="btn-del2" onclick="delNews(${n.id})">Delete</button>
+      </span></td>
+    </tr>`).join('')}
+  </tbody></table>`;
+}
+function editNews(id){
+  const news=load('news')||[];
+  const n=news.find(x=>x.id===id);
+  if(!n)return;
+  document.getElementById('newsId').value=n.id;
+  document.getElementById('nTitle').value=n.title;
+  document.getElementById('nBody').value=n.body;
+  document.getElementById('nCat').value=n.category;
+  document.querySelector('#apage-news .panel').scrollIntoView({behavior:'smooth'});
+}
+function delNews(id){
+  if(!confirm('Delete this news item?'))return;
+  let news=load('news')||[];
+  news=news.filter(n=>n.id!==id);
+  save('news',news); renderNewsList(); renderNews(); renderDash(); toast('✓ Deleted');
+}
+
+// ══════════════════════════════════════════════
+//  MENU ADMIN
+// ══════════════════════════════════════════════
+function buildMenuEditor(){
+  const menu=load('menu');
+  const meals=[{key:'breakfast',label:'🌅 Breakfast (07:00 HRS)'},{key:'lunch',label:'☀️ Lunch (14:40 HRS)'},{key:'dinner',label:'🌙 Dinner (18:00 HRS)'}];
+  const ed=document.getElementById('menuEditor');
+  ed.innerHTML='';
+  meals.forEach(m=>{
+    const items=(menu[m.key]&&menu[m.key].items)||[];
+    const col=document.createElement('div');
+    col.innerHTML=`<div class="meal-col-title">${m.label}</div>
+      <div id="mrows_${m.key}">${items.map((it,i)=>mealRow(m.key,it,i)).join('')}</div>
+      <button class="btn-green" style="margin-top:8px;font-size:10px;padding:7px 14px;" onclick="addMealRow('${m.key}')">+ ADD ITEM</button>`;
+    ed.appendChild(col);
+  });
+}
+function mealRow(key,val,i){
+  return `<div class="meal-item-row" id="mr_${key}_${i}">
+    <input type="text" value="${esc(val)}" placeholder="e.g. Jollof Rice"/>
+    <button class="btn-rm" onclick="document.getElementById('mr_${key}_${i}').remove()">✕</button>
+  </div>`;
+}
+function addMealRow(key){
+  const c=document.getElementById('mrows_'+key);
+  const i=c.children.length;
+  c.insertAdjacentHTML('beforeend',mealRow(key,'',i));
+}
+function saveMenu(){
+  const menu={};
+  ['breakfast','lunch','dinner'].forEach(k=>{
+    const rows=document.querySelectorAll(`#mrows_${k} input`);
+    menu[k]={items:Array.from(rows).map(r=>r.value.trim()).filter(Boolean)};
+  });
+  save('menu',menu); renderMenu(); buildMenuEditor(); toast('✓ Menu saved');
+}
+
+// ══════════════════════════════════════════════
+//  ACTIVITIES ADMIN
+// ══════════════════════════════════════════════
+function saveActivity(){
+  const id=document.getElementById('actId').value;
+  const name=document.getElementById('actName').value.trim();
+  const icon=document.getElementById('actIcon').value.trim()||'🎯';
+  const day=document.getElementById('actDay').value.trim();
+  const desc=document.getElementById('actDesc').value.trim();
+  if(!name)return toast('⚠ Enter activity name');
+  let acts=load('activities')||[];
+  if(id){
+    const idx=acts.findIndex(a=>a.id==id);
+    if(idx>-1)acts[idx]={...acts[idx],name,icon,day,desc};
+  } else {
+    acts.push({id:Date.now(),name,icon,day,desc});
+  }
+  save('activities',acts); clearAct(); renderActList(); renderActivities(); renderDash(); toast('✓ Activity saved');
+}
+function clearAct(){['actId','actName','actIcon','actDay','actDesc'].forEach(id=>document.getElementById(id).value='');}
+function renderActList(){
+  const acts=load('activities')||[];
+  const el=document.getElementById('actList');
+  if(!acts.length){el.innerHTML='<p style="color:var(--gray);font-size:14px;">No activities yet.</p>';return;}
+  el.innerHTML=`<table class="dtable"><thead><tr><th>Icon</th><th>Name</th><th>Day(s)</th><th>Actions</th></tr></thead><tbody>
+    ${acts.map(a=>`<tr>
+      <td>${a.icon||'🎯'}</td>
+      <td>${esc(a.name)}</td>
+      <td><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gold);">${esc(a.day||'')}</span></td>
+      <td><span style="display:flex;gap:6px;">
+        <button class="btn-edit2" onclick="editAct(${a.id})">Edit</button>
+        <button class="btn-del2" onclick="delAct(${a.id})">Delete</button>
+      </span></td>
+    </tr>`).join('')}
+  </tbody></table>`;
+}
+function editAct(id){
+  const acts=load('activities')||[];
+  const a=acts.find(x=>x.id===id);
+  if(!a)return;
+  document.getElementById('actId').value=a.id;
+  document.getElementById('actName').value=a.name;
+  document.getElementById('actIcon').value=a.icon||'';
+  document.getElementById('actDay').value=a.day||'';
+  document.getElementById('actDesc').value=a.desc||'';
+}
+function delAct(id){
+  if(!confirm('Delete this activity?'))return;
+  let acts=load('activities')||[];
+  acts=acts.filter(a=>a.id!==id);
+  save('activities',acts); renderActList(); renderActivities(); renderDash(); toast('✓ Deleted');
+}
+
+// ══════════════════════════════════════════════
+//  CLASSES ADMIN
+// ══════════════════════════════════════════════
+let admLvl='JSS1', admSec='A';
+function buildAdmLvlTabs(){
+  const el=document.getElementById('admLvlTabs');
+  el.innerHTML=LEVELS.map((l,i)=>`<div class="cltab${i===0?' on':''}" onclick="switchAdmLvl('${l}',this)">${l}</div>`).join('');
+  buildAdmSecTabs();
+}
+function buildAdmSecTabs(){
+  const el=document.getElementById('admSecTabs');
+  el.innerHTML=SECTIONS.map((s,i)=>`<div class="cstab${i===0?' on':''}" onclick="switchAdmSec('${s}',this)">Section ${s}</div>`).join('');
+  buildAdmClassEditor();
+}
+function switchAdmLvl(lvl,el){
+  admLvl=lvl;
+  document.querySelectorAll('.cltab').forEach(t=>t.classList.remove('on'));
+  if(el)el.classList.add('on');
+  buildAdmClassEditor();
+}
+function switchAdmSec(sec,el){
+  admSec=sec;
+  document.querySelectorAll('.cstab').forEach(t=>t.classList.remove('on'));
+  if(el)el.classList.add('on');
+  buildAdmClassEditor();
+}
+function buildAdmClassEditor(){
+  const key=`${admLvl}${admSec}`;
+  document.getElementById('clsCurrentLabel').textContent=`${admLvl} ${admSec}`;
+  const classes=load('classes');
+  const d=classes[key]||{teacher:'',captain:'',count:0,students:[]};
+  const students=d.students||[];
+  document.getElementById('classEditor').innerHTML=`
+    <div class="frow">
+      <div class="ffield"><label>Class Teacher</label><input type="text" id="clsTeacher" value="${esc(d.teacher||'')}" placeholder="e.g. Mr. Akpan Udo"/></div>
+      <div class="ffield"><label>Class Captain</label><input type="text" id="clsCaptain" value="${esc(d.captain||'')}" placeholder="e.g. Amara Okonkwo"/></div>
+      <div class="ffield" style="max-width:120px;"><label>Student Count</label><input type="number" id="clsCount" value="${d.count||0}" min="0"/></div>
+    </div>
+    <div style="margin-bottom:14px;">
+      <div style="font-family:'Cinzel',serif;font-size:14px;color:var(--gold);margin-bottom:10px;">📋 Student Roster — ${admLvl} ${admSec}</div>
+      <div id="stuRows">${students.map((s,i)=>`
+        <div class="stu-row">
+          <span class="stu-num">${String(i+1).padStart(2,'0')}</span>
+          <input type="text" value="${esc(s)}" placeholder="Student full name"/>
+          <button class="btn-rm" onclick="this.parentElement.remove()">✕</button>
+        </div>`).join('')}</div>
+      <button class="btn-green" style="margin-top:8px;font-size:10px;padding:8px 14px;" onclick="addStuRow()">+ ADD STUDENT</button>
+    </div>
+    <button class="btn-save" onclick="saveClass('${key}')">SAVE ${admLvl} ${admSec}</button>
+  `;
+}
+function addStuRow(){
+  const rows=document.getElementById('stuRows');
+  const i=rows.children.length;
+  const div=document.createElement('div');
+  div.className='stu-row';
+  div.innerHTML=`<span class="stu-num">${String(i+1).padStart(2,'0')}</span><input type="text" placeholder="Student full name"/><button class="btn-rm" onclick="this.parentElement.remove()">✕</button>`;
+  rows.appendChild(div);
+}
+function saveClass(key){
+  const students=Array.from(document.querySelectorAll('#stuRows input')).map(i=>i.value.trim()).filter(Boolean);
+  const data={
+    teacher:document.getElementById('clsTeacher').value.trim(),
+    captain:document.getElementById('clsCaptain').value.trim(),
+    count:parseInt(document.getElementById('clsCount').value)||students.length,
+    students
+  };
+  const classes=load('classes');
+  classes[key]=data;
+  save('classes',classes);
+  renderSiteSections(); renderDash(); toast(`✓ ${key} saved`);
+}
+
+// ══════════════════════════════════════════════
+//  LOGO PAGE
+// ══════════════════════════════════════════════
+function refreshLogoPage(){
+  const logo=load('logo');
+  const wrap=document.getElementById('currentLogoWrap');
+  const img=document.getElementById('currentLogoImg');
+  if(logo&&wrap&&img){wrap.style.display='block';img.src=logo;}
+  else if(wrap){wrap.style.display='none';}
+  document.getElementById('logoPrevWrap').style.display='none';
+  pendingLogo=null;
+}
+
+// ══════════════════════════════════════════════
+//  SETTINGS
+// ══════════════════════════════════════════════
+function saveSettings(){
+  const s={
+    name:document.getElementById('sName').value,
+    short:document.getElementById('sShort').value,
+    motto:document.getElementById('sMotto').value,
+    est:document.getElementById('sEst').value,
+    address:document.getElementById('sAddr').value,
+    phone:document.getElementById('sPhone').value
+  };
+  save('settings',s); toast('✓ Settings saved');
+}
+function changePass(){
+  const np=document.getElementById('newPass').value;
+  const cp=document.getElementById('confPass').value;
+  if(!np)return toast('⚠ Enter a new password');
+  if(np!==cp)return toast('⚠ Passwords do not match');
+  save('password',np);
+  document.getElementById('newPass').value='';
+  document.getElementById('confPass').value='';
+  toast('✓ Password changed successfully');
+}
+function resetAll(){
+  if(!confirm('RESET ALL DATA? This cannot be undone!'))return;
+  if(!confirm('Are you absolutely sure? All news, menu, classes, and activities will be reset.'))return;
+  ['news','menu','activities','classes','logo','password','settings'].forEach(k=>localStorage.removeItem('afcs_'+k));
+  location.reload();
+}
+
+// ══════════════════════════════════════════════
+//  MOBILE NAV
+// ══════════════════════════════════════════════
+function toggleMobileNav(){
+  const nl=document.getElementById('navLinks');
+  const showing=nl.style.display==='flex';
+  nl.style.display=showing?'none':'flex';
+  if(!showing){
+    Object.assign(nl.style,{flexDirection:'column',position:'absolute',top:'64px',left:'0',right:'0',background:'rgba(10,22,40,.98)',padding:'20px',gap:'20px',zIndex:'899'});
+  }
+}
+
+// ══════════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════════
+function toast(msg='✓ Saved'){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// ══════════════════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════════════════
+function esc(s){
+  if(!s)return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function fmtDate(d){
+  try{ return new Date(d).toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'}); }
+  catch{ return d||''; }
+}
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+buildTicker();
+buildDayTabs();
+renderTimeline();
+renderNews();
+renderMenu();
+buildSiteLvlTabs();
+renderActivities();
+applyLogo();
+</script>
+</body>
+</html>
